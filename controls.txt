@@ -1,0 +1,8 @@
+# pong
+bad 2 player pong
+
+controls:
+player 1:
+  w/s
+player 2:
+  up/down arrow keys
