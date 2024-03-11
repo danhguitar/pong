@@ -14,10 +14,10 @@ FRAMERATE = 60
 
 FONT = pygame.font.Font('assets/font.ttf', 15)
 
-BACKGROUND = pygame.transform.scale(pygame.image.load('assets/background.png').convert(), RESOLUTION)
+BACKGROUND = pygame.transform.scale(pygame.image.load('background.png').convert(), RESOLUTION)
 
-PADDLE = pygame.transform.rotate(pygame.transform.scale(pygame.image.load('assets/paddle.png').convert(), (48,16)), 90)
-BALL = pygame.transform.scale((pygame.image.load('assets/ball.png').convert()), (16,16))
+PADDLE = pygame.transform.rotate(pygame.transform.scale(pygame.image.load('paddle.png').convert(), (48,16)), 90)
+BALL = pygame.transform.scale((pygame.image.load('ball.png').convert()), (16,16))
 
 
 GAMESTATES = [
