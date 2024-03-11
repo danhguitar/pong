@@ -14,18 +14,33 @@ FRAMERATE = 60
 
 FONT = pygame.font.Font('assets/font.ttf', 15)
 
-BACKGROUND = pygame.transform.scale(pygame.image.load('background.png').convert(), RESOLUTION)
+BACKGROUND = pygame.transform.scale(pygame.image.load('assets/background.png').convert(), RESOLUTION)
 
-PADDLE = pygame.transform.rotate(pygame.transform.scale(pygame.image.load('paddle.png').convert(), (48,16)), 90)
-BALL = pygame.transform.scale((pygame.image.load('ball.png').convert()), (16,16))
+PADDLE = pygame.transform.rotate(pygame.transform.scale(pygame.image.load('assets/paddle.png').convert(), (48,16)), 90)
+BALL = pygame.transform.scale((pygame.image.load('assets/ball.png').convert()), (16,16))
 
+START_IMAGE = pygame.image.load('assets/start.png').convert()
 
 GAMESTATES = [
-  'load',
   'title',
   'game'
 ]
-gamestate = GAMESTATES[2]
+gamestate = GAMESTATES[0]
+
+
+class button():
+  def __init__(self, **args):
+    if args['image'] == None:
+      args['image'] = BALL
+    if args['xpos'] == None:
+      args['xpos'] = 5
+    if args['ypos'] == None:
+      args['ypos'] = 5
+    self.image = args['image']
+    self.posX = args['xpos']
+    self.posY = args['ypos']
+    self.width = self.image.get_width()
+    self.height = self.image.get_height()
 
 
 class paddle(pygame.sprite.Sprite):
@@ -43,6 +58,7 @@ class paddle(pygame.sprite.Sprite):
     self.height = self.image.get_height()
     self.accelY = 0
     self.accelSpeed = accelSpeed
+    self.defaultAccelSpeed = accelSpeed
   
   def move(self):
     if self.accelY < 0 and (self.rect.y > 0):
@@ -59,6 +75,13 @@ class paddle(pygame.sprite.Sprite):
 
   def update(self):
     self.move()
+
+    if self.rect.y <= 0 :
+      self.rect.y = 1
+      self.accelY = 1
+    if self.rect.y >= (screen.get_height()-self.height):
+      self.rect.y = (screen.get_height()-self.height)-1
+      self.accelY = -1
 
 class ball(pygame.sprite.Sprite):
   def __init__(self, posX, posY, directX, directY, constSpeed, accelSpeed):
